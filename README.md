@@ -4,7 +4,7 @@ This program ingests invalid json data into a PostgreSQL database and transforms
 
 ## Implementation Details
 
-### 1. Data Cleaning (`clean_data.py`)
+### 1. Data Cleaning (`data_clean.py`)
 The raw input file `task1_d.json` is not formatted as valid JSON, but rather as an array of Ruby hashes (`{:key=>value}`). Python script uses Regular Expressions to standardize the syntax into valid JSON keys (`"key":value`). It outputs cleaned data into a JSON Lines `.jsonl` file, ensuring PostgreSQL can easily ingest it row by row.
 
 ### 2. Orchestration (`pipeline.sh`)
