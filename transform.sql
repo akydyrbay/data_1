@@ -10,10 +10,10 @@ SELECT
     data->> 'publisher' AS publisher,
     (data->>'year')::INT AS publication_year,
     CASE
-        WHEN data->>'price' LIKE '€%' THEN 
-            CAST(REGEXP_REPLACE(data->>'price', '[^0-9\.]', '', 'g') AS NUMERIC) * 1.2
+        WHEN data->>'price' LIKE '%€%' OR data->>'price' LIKE '%\u20ac%' THEN 
+            (SUBSTRING(data->>'price' FROM '[\d\.]+'))::NUMERIC * 1.2
         ELSE 
-            CAST(REGEXP_REPLACE(data->>'price', '[^0-9\.]', '', 'g') AS NUMERIC)
+            (SUBSTRING(data->>'price' FROM '[\d\.]+'))::NUMERIC
     END AS price_usd
 FROM raw_data;
 
